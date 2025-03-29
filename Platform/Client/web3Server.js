@@ -93,7 +93,7 @@ exports.newWeb3Server = function newWeb3Server() {
                 URI = 'https://bsc-dataseed1.binance.org'
                 break
             case 'ETH':
-                URI = 'https://rpc.ankr.com/eth'
+                URI = 'https://eth.llamarpc.com'
                 break
             case 'GOERLI':
                 URI = 'https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
@@ -139,7 +139,7 @@ exports.newWeb3Server = function newWeb3Server() {
                 URI = 'https://bsc-dataseed1.binance.org'        
                 break
             case 'ETH':
-                URI = 'https://rpc.ankr.com/eth'
+                URI = 'https://eth.llamarpc.com'
                 break
             case 'GOERLI':
                 URI = 'https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
@@ -523,7 +523,7 @@ exports.newWeb3Server = function newWeb3Server() {
                             URI = 'https://bsc-dataseed.binance.org/'
                             break
                         case 'ETH':
-                            URI = 'https://rpc.ankr.com/eth'
+                            URI = 'https://eth.llamarpc.com'
                             break
                         case 'GOERLI':
                             URI = 'https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
@@ -577,7 +577,7 @@ exports.newWeb3Server = function newWeb3Server() {
                                     name: 'Ethereum Mainnet',
                                     networkId: 1,
                                     chainId: 1,
-                                    url: 'https://rpc.ankr.com/eth'
+                                    url: 'https://eth.llamarpc.com'
                                 },
                                 'istanbul',
                             );
