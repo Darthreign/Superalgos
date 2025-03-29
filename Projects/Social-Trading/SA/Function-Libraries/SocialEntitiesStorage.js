@@ -72,7 +72,7 @@ exports.newSocialTradingFunctionLibrariesSocialEntitiesStorage = function () {
             */
             let fileContent = profileMessage.profileData
             let fileName = socialEntity.id
-            let filePath = "Social-Entities"
+            let filePath = "User-Profile"
             /*
             We are going to save this file at all of the Storage Containers defined.
             */
@@ -134,7 +134,7 @@ exports.newSocialTradingFunctionLibrariesSocialEntitiesStorage = function () {
     ) {
         /*
         When the Web App makes a query that includes Post text as responses,
-        we need to fetch the text from the the storage container of the author
+        we need to fetch the text from the storage container of the author
         of such posts, since the Network Nodes do not store that info themselves, 
         they just store the structure of the social graph.
         */
@@ -208,7 +208,7 @@ exports.newSocialTradingFunctionLibrariesSocialEntitiesStorage = function () {
                 and if it is not possible we will try with the next ones.
                 */
                 let fileName = socialEntity.id
-                let filePath = "Social-Entities"
+                let filePath = "User-Profile"
 
                 const storageClient = SA.projects.openStorage.utilities.storageFactory.getStorageClient(storageContainer.parentNode.type)
                 if(storageClient !== undefined) {

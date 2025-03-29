@@ -16,7 +16,7 @@ exports.newOpenStorageUtilitiesStorageFactory = function newOpenStorageUtilities
      */
     function getStorageClient(containerType) {
         switch (containerType) {
-            case 'Github Storage Container': {
+            case 'Github Storage': {
                 return clients.githubStorage
             }
             case 'AWS S3 Storage Container': {
