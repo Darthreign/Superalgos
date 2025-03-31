@@ -263,12 +263,6 @@ const mutations = {
             };
         }
     
-        // Ensure profileData is an object before merging
-        if (typeof profileData !== 'object' || Array.isArray(profileData)) {
-            console.error('Profile data format error:', profileData);
-            return;
-        }
-    
         // Explicitly merge the new profile data instead of spreading
         Object.assign(state.socialBots[originSocialTradingBotId], profileData);
     },
