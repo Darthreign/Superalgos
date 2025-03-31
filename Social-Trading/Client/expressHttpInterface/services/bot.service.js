@@ -86,15 +86,16 @@ const loadProfile = async (message, res) => {
             profileMessage: JSON.stringify(profileMessage)
         }
 
-        const result = await webAppInterface.sendMessage(
+        const response = await webAppInterface.sendMessage(
             JSON.stringify(query)
-        )
-        res = result
-        res.data = result.profileData;
-        res.result = result.result;
-        res.message = result.message;
-
-        return res
+        );
+       
+       
+       return {
+        data: response.profileData,
+        result: response.result,
+        message: response.message
+    };
 
     } catch (error) {
         console.log(error);
@@ -135,8 +136,10 @@ const sendMessage = async (message) => {
             requestType: 'POST',
             profileMessage: profileMessage
         };
-    
-        // Your logic to send a message
+        return await webAppInterface.sendMessage(
+            JSON.stringify(query)
+        )
+        
     } catch (error) {
         console.error('Error sending message:', error);
     }
