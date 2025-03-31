@@ -86,17 +86,10 @@ const loadProfile = async (message, res) => {
             profileMessage: JSON.stringify(profileMessage)
         }
 
-        const response = await webAppInterface.sendMessage(
+        return await webAppInterface.sendMessage(
             JSON.stringify(query)
         );
        
-       
-       return {
-        data: response.profileData,
-        result: response.result,
-        message: response.message
-    };
-
     } catch (error) {
         console.log(error);
         return {status: 'Ko', message: error};
