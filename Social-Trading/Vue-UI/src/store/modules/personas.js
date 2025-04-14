@@ -14,9 +14,9 @@ const state = {
       
   usersSocialPersonas: [],                                 // Other users socialPersonas from Superalgos Governance Repo
    
-  followedUser: [],                                        // Event emitted at social graph and stored at Network Node. ?TODO store the events on users storage container
+  followedUser: [],                                        // Event emitted at social graph and stored at Network Node. TODO store the events on users storage container
   addFollowerToSocialPersonasToStorage: {},               //  Stored Follower event on users storage container
-  removeFollowing: {},                                     //  Removes Followeing event on users storage container
+  removeFollowing: {},                                     //  Removes Following event on users storage container
        
 }
 
@@ -45,8 +45,7 @@ const actions = {
         commit('SET_SOCIAL_PERSONAS', socialPersonas);
         // Calls the function
         dispatch('getMyProfiles', socialPersonas)
-       // dispatch('posts/getSocialPersonasPostsFromStorage', socialPersonas, {root: true})
-        await dispatch('socialPersonas/fetchSocialPersonas', socialPersonas, { root: true });
+       // dispatch('posts/getSocialPersonasPostsFromStorage', socialPersonas, {root: true});
     
       
   },
@@ -92,18 +91,20 @@ const actions = {
                 } else {
                     socialPersonasNotReturned.push(socialPersonas[i]);
                 }
-    
-                commit('SET_MY_PROFILES', socialPersonasFromStorage);
-                await dispatch('socialPersonas/fetchSocialPersonasFromStorage', socialPersonasFromStorage, { root: true });
             }
-    
+            //This loops through all the socialPersonas from storage and sets each Profile
+            socialPersonasFromStorage.forEach(profile => {
+            commit('SET_MY_PROFILES', profile);
+            }) 
             if (socialPersonasNotReturned.length > 0) {
                 // Retry fetching socialPersonas that were not returned
                 const remainingResponses = await dispatch('getMyProfiles', socialPersonasNotReturned);
                 return socialPersonasFromStorage.length + remainingResponses;
             }
-            console.log('profile', socialPersonasFromStorage)
-            commit('SET_MY_PROFILES', socialPersonasFromStorage);
+            //This loops through the rest of the socialPersonas from storage and sets each Profile
+            socialPersonasFromStorage.forEach(profile => {
+              commit('SET_MY_PROFILES', profile);
+            }) 
     
              // Fetch posts for each processed social persona
             for (let i = 0; i < socialPersonas.length; i++) {
@@ -145,6 +146,21 @@ const actions = {
       commit('UPDATE_SOCIAL_PERSONA', socialPersona);
     } catch (error) {
       console.log(error)
+    }
+  },
+  setSelectedSocialPersona({commit, dispatch}, socialPersona) {
+    //console.log('you have the selected Social Persona in sp Module', socialPersona)
+    commit('SET_SELECTED_SOCIAL_PERSONA', socialPersona)
+
+     // Store the selectedSocialPersona in browser storage for persistence
+    localStorage.setItem('selectedSocialPersona', JSON.stringify(socialPersona))
+  },
+   //fetch the saved Persona from web/ session storage for refreshing the Page
+  initializeSelectedPersona({ commit }) {
+    const storedPersona = localStorage.getItem('selectedSocialPersona');
+    if (storedPersona) {
+      const socialPersona = JSON.parse(storedPersona);
+      commit('SET_SELECTED_SOCIAL_PERSONA', socialPersona);
     }
   },
 
@@ -209,12 +225,17 @@ const actions = {
     
   },
 }
+ // Helper function to get a list of all personas from state.socialPersonas
+function getAllPersonas(state) {
+   console.log('Getting all personas')
+  return Object.values(state.socialPersonas);
+}
 
 const getters = {
     
   socialEntities: state => state.socialEntities,              // My Entities from Superalgos Governance Repo
   socialPersonas: state => state.socialPersonas,              // My socialPersonas from Superalgos Governance Repo
-  socialBots: state => state.socialBots,                      // My socialTrading Bots from Superalgos Governance Rep
+  allPersonas: (state) => getAllPersonas(state),
     
   socialPersonasFromStorage: state => state.socialPersonasFromStorage,
   socialPersonaProfiles: state => state.socialPersonaProfiles,
